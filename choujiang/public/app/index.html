@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="">
+<head>
+  <meta charset="utf-8">
+  <title>美悟空—释放你的精彩人生</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <link rel="stylesheet" href="http://haomingwechat.oss-cn-shenzhen.aliyuncs.com/choujiang/styles/vendor.css"/>
+  <!-- build:css(.tmp) styles/Ming.css -->
+  <link rel="stylesheet" href="/styles/Ming.css">
+  <!-- endbuild -->
+</head>
+<body>
+<div class="container index_bg">
+  <!--顶部对话框-->
+  <div class="row">
+    <div class="col-xs-12" style="margin-top: 17pt;text-align: center;padding: 0px">
+      <div class="col-xs-3" style="margin-top: 2px;padding-right: 5px">
+        <img src="<%= usertemp.headimgurl %>" width="40px" height="40px"
+             style="border: 2px solid white;border-radius: 20px;background-color: #3f3f3f"/>
+        <p style="color: #6F4F59"><%= usertemp.nickname %></p>
+      </div>
+      <div class="col-xs-9 ChatFrame" style="text-align: left;">
+        <p style="font-size: 12pt;padding: 15px;margin: 0px;">取美丽经的路上，我们还缺很多装备！快把奖品分了吧！大转盘，抽起来！</p>
+      </div>
+    </div>
+  </div>
+  <!--顶部对话框-->
+
+  <!--转盘-->
+  <div class="row " style="margin-top: 5%;padding: 0px;overflow: hidden">
+    <div style="margin-top: 17px;padding: 0px;position: relative">
+      <img src="http://haomingwechat.oss-cn-shenzhen.aliyuncs.com/choujiang/images/index_Mask.png" width="18%" style="position: absolute;right: 6%;top: -15px"/>
+      <img src="http://haomingwechat.oss-cn-shenzhen.aliyuncs.com/choujiang/images/index_Turntable.png" width="90%" id="Turntable" style="position: absolute;left: 5%"/>
+      <img src="http://haomingwechat.oss-cn-shenzhen.aliyuncs.com/choujiang/images/index_Turntable_btn.png" width="60%" style="position: absolute;left:20%;padding-top: 28%" id="Turntable_btn"/>
+    </div>
+
+    <div class="col-xs-12" style="margin-top: 110%;height: 40px;padding: 0px;position: relative">
+      <div class="col-xs-4 col-xs-offset-1 index_btn_left" style="padding: 0px;text-align: center" id="prize"><p
+        style="margin-top: 4pt;color: #6F4B38;font-size: 15pt">我的奖品</p></div>
+
+      <a href="/GameRules">
+        <div class="col-xs-4 col-xs-offset-2 index_btn_right" style="padding: 0px;text-align: center"><p
+          style="margin-top: 4pt;color: #6F4B38;font-size: 15pt">游戏规则</p></div>
+      </a>
+    </div>
+  </div>
+  <!--转盘-->
+
+  <!-- 中奖 -->
+  <div class="modal fade" tabindex="-1" role="dialog" id="winner" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content" style="margin-top: 2%">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xs-12 index_close_img">
+              <img src="http://haomingwechat.oss-cn-shenzhen.aliyuncs.com/choujiang/images/x.png" width="10%" data-dismiss="modal"/>
+            </div>
+            <div class="col-xs-12 index_WinningPop_bg">
+              <p class="p1">探子回报，你已经中了</p>
+              <p class="p2" id="p2">XXXXX</p>
+              <button class="btn btn-danger index_Pop_btn" id="userinfo_fill_out">信息填写</button>
+              <p class="index_Pop_bottom_font">小提示:活动结束7个工作日内将会接到快递蜀黍的领奖电话哦！</p>
+            </div>
+            <div class="col-xs-12 index_Pop_buttom">
+              <p>您获得的所有奖品都放在“我的奖品”，方便您随时查询。</p>
+            </div>
+            <!--<div class="index_Pop_tips">-->
+              <!--<img src="http://haomingwechat.oss-cn-shenzhen.aliyuncs.com/choujiang/images/index_tips.png" width="40%"/>-->
+            <!--</div>-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 中奖 -->
+
+  <!--  我的奖品  -->
+  <div class="modal fade" tabindex="-1" role="dialog" id="prize_pop" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xs-12 index_close_img">
+              <img src="http://haomingwechat.oss-cn-shenzhen.aliyuncs.com/choujiang/images/index_right_share.png" class="index_top_share" id="Mylottery" width="100%"/>
+              <img src="http://haomingwechat.oss-cn-shenzhen.aliyuncs.com/choujiang/images/x.png" width="10%" data-dismiss="modal"/>
+            </div>
+            <div class="col-xs-12 index_WinningPop_bg">
+              <p class="p1">探子回报，你已经中了</p>
+              <p class="p2">XXXXX</p>
+              <button class="btn btn-danger index_Pop_btn" id="xiaoyao">炫耀一下</button>
+              <p class="index_Pop_bottom_font">小提示：<br>活动结束7个工作日内将会接到快递蜀黍的领奖电话哦！</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 我的奖品 -->
+
+
+  <!--不中一-->
+  <div class="modal fade" tabindex="-1" role="dialog" id="lose_one" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xs-12 index_close_img">
+              <img src="http://haomingwechat.oss-cn-shenzhen.aliyuncs.com/choujiang/images/index_right_share.png" class="index_top_share" id="nolottery_one" width="100%"/>
+              <img src="http://haomingwechat.oss-cn-shenzhen.aliyuncs.com/choujiang/images/x.png" width="10%" data-dismiss="modal"/>
+            </div>
+            <div class="col-xs-12 index_losePop_one_bg">
+              <p id="one1">请朋友助攻，可以复活 一次抽奖机会哦！</p>
+              <button class="btn btn-danger share" id="share">分享到社交媒体</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--不中一-->
+
+  <!--不中二-->
+  <div class="modal fade" tabindex="-1" role="dialog" id="lose_two" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-xs-12 index_close_img">
+              <img src="http://haomingwechat.oss-cn-shenzhen.aliyuncs.com/choujiang/images/index_right_share.png" class="index_top_share" id="nolottery_two" width="100%"/>
+              <img src="http://haomingwechat.oss-cn-shenzhen.aliyuncs.com/choujiang/images/x.png" width="10%" data-dismiss="modal"/>
+            </div>
+            <div class="col-xs-12 index_losePop_two_bg">
+              <p id="two1">没关系，明天还在这儿等你，直到中奖为止!</p>
+              <button class="btn btn-danger share" id="share2">分享到社交媒体</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--不中二-->
+
+  <div class="row" style="margin-top: 10%">
+    <div class="col-xs-12" style="text-align: center">
+      <div class="col-xs-3" style="background-color: #44423C;height: 2px;margin-top: 8px;width: 30%"></div>
+      <div class="col-xs-6" style="padding:0px;width: 40%">看朋友们手气如何</div>
+      <div class="col-xs-3" style="background-color: #44423C;height: 2px;margin-top: 8px;width: 30%"></div>
+    </div>
+  </div>
+
+  <div class="row" style="overflow: scroll;height: 200px">
+
+    <!--数据列表-->
+    <div id="show_users"></div>
+
+    <!--数据列表-->
+  </div>
+</div>
+
+<script src="http://haomingwechat.oss-cn-shenzhen.aliyuncs.com/choujiang/scripts/jweixin-1.0.0.js"></script>
+<script>
+  var Openid = '<%= usertemp.openid %>';
+  var nickname = '<%= usertemp.nickname %>';
+  var headimgurl = '<%= usertemp.headimgurl %>'
+  wx.config({
+    debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+    appId: 'wxf63280efef262079', // 必填，公众号的唯一标识
+    timestamp: '<%= ret.timestamp %>', // 必填，生成签名的时间戳
+    nonceStr: '<%= ret.nonceStr%>', // 必填，生成签名的随机串
+    signature: '<%= ret.signature%>',// 必填，签名，见附录1
+    jsApiList: [
+      'onMenuShareTimeline',
+      'onMenuShareAppMessage',
+      'chooseImage'
+    ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+  });
+</script>
+
+<script src="http://haomingwechat.oss-cn-shenzhen.aliyuncs.com/choujiang/scripts/jq.js"></script>
+<script src="http://haomingwechat.oss-cn-shenzhen.aliyuncs.com/choujiang/scripts/plugins.js"></script>
+<script src="http://haomingwechat.oss-cn-shenzhen.aliyuncs.com/choujiang/scripts/jquery_Rotate.js"></script>
+
+<!-- build:js scripts/side_top.js -->
+<script src="/scripts/index.js"></script>
+<script src="/scripts/wxjsdk.js"></script>
+
+<!-- endbuild -->
+
+
+</body>
+</html>

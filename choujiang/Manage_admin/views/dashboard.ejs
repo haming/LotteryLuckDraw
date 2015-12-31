@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <% include header.ejs %>
+</head>
+<% include nav.ejs %>
+
+<div class="container">
+    <!-- left, vertical navbar & content -->
+    <div class="row">
+        <!-- left, vertical navbar -->
+        <% include left.ejs %>
+        <!-- content -->
+        <div class="col-md-10">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="page-header">
+                        <h1>管理主页</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="alert alert-success bootstrap-admin-alert">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        <h4 id="show">Success</h4>
+                        登录成功
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <form method="post" action="/selectItem">
+                        <input id="searchName" class="form-control" style="width: 50%;float:left;" type="text"
+                               name="item_name" placeholder="输入搜索作品名称"/>
+                        <Button class="btn btn-primary" type="submit" style="float:left;" value="搜索">搜索</Button>
+                    </form>
+
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="text-muted bootstrap-admin-box-title">作品管理</div>
+                            <div class="pull-right"><span class="badge">2015</span></div>
+                        </div>
+                        <div class="bootstrap-admin-panel-content">
+                            <div class="row bootstrap-admin-light-padding-bottom">
+                                <p id="show_items"></p>
+
+                                <div class="col-lg-12">
+                                    <div class="col-lg-4" style="text-align: left">
+                                        <button id="top" class="btn btn-danger">上一页</button>
+                                    </div>
+
+                                    <div class="col-lg-4" style="text-align: center">
+                                        <p><span id="now"></span>/<span id="all"></span></p>
+                                        <!--<p id="now"></p>-->
+                                        <!--<p id="all"></p>-->
+                                    </div>
+
+                                    <div class="col-lg-4" style="text-align: right">
+                                        <button id="dowm" class="btn btn-danger">下一页</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <div class="text-muted bootstrap-admin-box-title">Panel without data</div>
+                            <div class="pull-right"><span class="badge">0</span></div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="no-data">
+                                Sorry, no data to display
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- footer -->
+<div class="navbar navbar-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <footer role="contentinfo">
+                    <p class="left">五帆科技</p>
+
+                    <p class="right">&copy; 2013 <a href="http://www.5ftech.com/" target="_blank">www.5ftech.com/</a>
+                    </p>
+                </footer>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script type="text/javascript" src="../js/jquery-2.0.3.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script type="text/javascript" src="../js/bootstrap.js"></script>
+<script type="text/javascript" src="../js/twitter-bootstrap-hover-dropdown.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap-admin-theme-change-size.js"></script>
+<script type="text/javascript" src="../vendors/easypiechart/jquery.easy-pie-chart.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        // Easy pie charts
+        $('.easyPieChart').easyPieChart({animate: 1000});
+    });
+</script>
+<script>
+    //    获得数据
+    var items = <%- result %>;
+
+    //获得数据长度
+    var item_num = items.length;
+
+    var show = 9; //显示的个数
+    var now = 0;
+
+    var pagesall = Math.ceil(item_num / show);   //获得页数
+
+    $(document).ready(function () {
+        var nowNum = now + 1
+        $('#now').text("当前页数：" + nowNum);
+        $('#all').text("总页数：" + pagesall);
+        function itemss() {
+            for (var show_num = now * show; show_num < (now + 1) * show; show_num++) {
+                $('#show_items').append("<div class='col-md-4'><a href='/updateItem/" + items[show_num].item_id + "' class='thumbnail'><img data-src='holder.js/260x180' alt='260x180' style='width: 260px; height: 180px;' src='" + items[show_num].item_imgList + "'></a><p style='width: 260px;text-align: center;'>" + items[show_num].item_name + "</p></div>");
+            }
+        }
+
+        itemss();
+
+//        $('#search').click(function(){
+//            var item_name = $('#searchName').var();
+//            if(item_name == null){
+//                alert("请输入搜索内容");
+//            }else{
+//
+//            }
+//        })
+
+//        上一页
+        $('#top').click(function () {
+            if (now == 0) {
+                alert("已到最前页！");
+            } else {
+                now--;
+                nowNum = now + 1
+                $('#now').text("当前页数：" + nowNum);
+                $('#show_items').empty();
+                itemss();
+            }
+        });
+
+//        下一页
+        $('#dowm').click(function () {
+            if (now == pagesall - 1) {
+                alert("已到最后页");
+            } else {
+                now++;
+                nowNum = now + 1
+                $('#now').text("当前页数：" + nowNum);
+                $('#show_items').empty();
+                itemss();
+            }
+        });
+
+    })
+</script>
+
+</html>

@@ -1,0 +1,28 @@
+{
+  "name": "com.wufan.Ming.RouletteLuckDraw",
+  "versions":"1.0.0",
+  "authors": [
+    "haming"
+  ],
+  "description": "RouletteLuckDraw",
+  "main": "index.html",
+  "moduleType": [],
+  "keywords": [
+    "lottery",
+    "drawlottery",
+    "draw",
+    "wechat",
+    "Rouletter",
+    "LuckDraw"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

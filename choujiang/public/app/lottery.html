@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>中奖了</title>
+  <link rel="stylesheet" href="http://haomingwechat.oss-cn-shenzhen.aliyuncs.com/choujiang/styles/vendor.css"/>
+  <link rel="stylesheet" href="styles/Ming.css">
+</head>
+<body style="width: 100%;height: 100%;background-color: #E0355f">
+<div class="lottery_bg">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 lottery_top_bg">
+        <img id="userimg" src="http://haomingwechat.oss-cn-shenzhen.aliyuncs.com/choujiang/images/Hug.png" width="30%"/>
+      </div>
+
+      <div class="col-xs-12 lottery_top_font_bg">
+        <img src="http://haomingwechat.oss-cn-shenzhen.aliyuncs.com/choujiang/images/lottery_bangbangda.png"
+             width="60%"/>
+        <p id="lottery">xxxxx</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-10 col-xs-offset-1 lottery_Middle_font_bg">
+        <p>小提示：留下你的电话和领奖地址，快递蜀黍才能找到你哦!</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12" style="text-align: center">
+        <div class="lottery_phone col-xs-12">
+          <p>姓名<input type="text" id="UserName" maxlength="10" placeholder=" 请输入你的姓名"/></p>
+        </div>
+        <div class="lottery_phone col-xs-12">
+          <p>+86<input type="tel" id="userPhone" maxlength="11" placeholder=" 请输入手机号"/></p>
+        </div>
+
+        <div class="lottery_phone col-xs-12">
+          <p>地址<input type="text" id="userAddress" maxlength="50" placeholder=" 请输入你的地址"/></p>
+        </div>
+        <div id="commit" class="lottery_btn col-xs-12">
+          <p>提&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;交</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+
+<script src="http://haomingwechat.oss-cn-shenzhen.aliyuncs.com/choujiang/scripts/jq.js"></script>
+<script src="http://haomingwechat.oss-cn-shenzhen.aliyuncs.com/choujiang/scripts/plugins.js"></script>
+
+<script>
+  //获得hred后面的值
+  var openid = getQueryString("openid");
+  function getQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null)return unescape(r[2]);
+    return null;
+  }
+
+  $(document).ready(function () {
+
+    var users_openid = {Openid: openid};
+    $.get("check_User_lottery", users_openid, function (msg) {
+
+
+      $('#lottery').text(msg[0].Lottery);
+      $('#userimg').attr("src", msg[0].headimgurl);
+    });
+
+    alert("信息用作快递且不能修改,请认真填写!");
+
+    $('#commit').click(function () {
+      var UserName = $('#UserName').val();
+      var userPhone = $('#userPhone').val();
+      var userAddress = $('#userAddress').val();
+      var userinfo = {userName: UserName, userPhone: userPhone, userAddress: userAddress, Openid: openid};
+
+
+      $.get("/updateUser_Lottery_msg", userinfo, function (date) {
+        if (date == "000") {
+
+          alert("填写成功!");
+
+          window.location.href = 'http://haoming.5ftech.com';
+        } else {
+          alert("填写失败!");
+        }
+      });
+    });
+  });
+</script>
+</html>
